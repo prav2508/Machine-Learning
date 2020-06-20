@@ -5,9 +5,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer 
 from sklearn.preprocessing import OneHotEncoder,LabelEncoder,StandardScaler
 from sklearn.model_selection import train_test_split
+import os
 
-   
-data = pd.read_csv('E:\Workspace\Machine_Learning\Machine Learning concepts\Part 1 - Data Preprocessing\Data.csv')
+#dirname = os.path.dirname(__file__)
+#filename = os.path.join(dirname, 'Part 1 - Data Preprocessing\Data.csv')
+data = pd.read_csv('Part 1 - Data Preprocessing\Data.csv')
 
 
 
@@ -40,6 +42,7 @@ x_train, x_test, y_train, y_test = train_test_split(x,y,test_size=0.2, random_st
 sc_x = StandardScaler()
 x_train = sc_x.fit_transform(x_train)
 x_test = sc_x.transform(x_test)
- 
+
+print(x_train,y_train)
 
  
