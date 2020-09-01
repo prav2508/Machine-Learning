@@ -4,7 +4,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
 # Importing the dataset
 dataset = pd.read_csv('Natural Language Processing\Restaurant_Reviews.tsv', delimiter = '\t', quoting = 3)
 
@@ -12,20 +11,23 @@ dataset = pd.read_csv('Natural Language Processing\Restaurant_Reviews.tsv', deli
 import re
 import nltk
 nltk.download('stopwords')
+nltk.download('wordnet')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
+from nltk.stem import WordNetLemmatizer
 corpus = []
 for i in range(0, 1000):
   review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
   review = review.lower()
   review = review.split()
   ps = PorterStemmer()
+  lm = WordNetLemmatizer()
   all_stopwords = stopwords.words('english')
   all_stopwords.remove('not')
   review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
   review = ' '.join(review)
   corpus.append(review)
-print(corpus)
+
 
 # Creating the Bag of Words model
 from sklearn.feature_extraction.text import CountVectorizer
@@ -50,4 +52,4 @@ print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),
 from sklearn.metrics import confusion_matrix, accuracy_score
 cm = confusion_matrix(y_test, y_pred)
 print(cm)
-accuracy_score(y_test, y_pred)
+print(accuracy_score(y_test, y_pred))
